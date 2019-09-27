@@ -1,7 +1,13 @@
 {
-	"name": "sorry510-demo",
-	"displayName": "sory510-demo",
-	"description": "hello world",
+	"name": "vscode-sorry510-exchange-char",
+	"displayName": "vscode-sory510-exchange-char",
+	"description": "exchange two char",
+	"keywords": [
+		"plugin",
+		"exchange",
+		"char"
+	],
+	"publisher": "sorry510",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.38.0"
@@ -10,14 +16,16 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld"
+		"onCommand:extension.exchangeChar"
 	],
 	"main": "./extension.js",
 	"contributes": {
-		"commands": [
+		"keybindings": [
 			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
+					"command": "extension.exchangeChar",
+					"key": "ctrl+t",
+					"mac": "cmd+t",
+					"when": "editorTextFocus"
 			}
 		]
 	},

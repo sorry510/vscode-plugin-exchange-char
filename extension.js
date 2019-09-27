@@ -10,18 +10,18 @@ const vscode = require('vscode');
  */
 function activate(context) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "sorry510-demo" is now active!');
-
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with  registerCommand
 	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('extension.helloWorld', function () {
-		// The code you place here will be executed every time your command is executed
-
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World!');
+	let disposable = vscode.commands.registerTextEditorCommand('extension.exchangeChar', (textEditor, edit)=> {
+		const { document, selection } = textEditor
+		const { active: { line, character } } = selection
+		if(character !== 0) {
+			const range = new vscode.Range(line, character - 1, line, character + 1) // 交换的2个char的位置
+			const yText = document.getText(range)
+			const nText = yText[1] + yText[0]
+			edit.replace(range, nText)
+		}
 	});
 
 	context.subscriptions.push(disposable);
@@ -29,7 +29,9 @@ function activate(context) {
 exports.activate = activate;
 
 // this method is called when your extension is deactivated
-function deactivate() {}
+function deactivate() {
+	// console.log('extension deactivate')
+}
 
 module.exports = {
 	activate,
